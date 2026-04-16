@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Guru Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      width: 120px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #38bdf8;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    #log {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Fake Guru Simulator</h1>
+<p>Grow your empire… but don’t get exposed.</p>
+
+<div class="stats">
+  <div class="card">
+    <h3>Followers</h3>
+    <p id="followers">100</p>
+  </div>
+  <div class="card">
+    <h3>Money</h3>
+    <p id="money">50</p>
+  </div>
+  <div class="card">
+    <h3>Credibility</h3>
+    <p id="credibility">100</p>
+  </div>
+</div>
+
+<div>
+  <button onclick="postValue()">Post Value</button>
+  <button onclick="hype()">Hype Content</button>
+  <button onclick="sell()">Sell Course</button>
+  <button onclick="flex()">Flex Lifestyle</button>
+</div>
+
+<p id="log"></p>
+
+<script>
+  let followers = 100;
+  let money = 50;
+  let credibility = 100;
+
+  function updateUI(message="") {
+    document.getElementById("followers").innerText = Math.floor(followers);
+    document.getElementById("money").innerText = Math.floor(money);
+    document.getElementById("credibility").innerText = Math.floor(credibility);
+    document.getElementById("log").innerText = message;
+
+    checkGameOver();
+  }
+
+  function postValue() {
+    let gain = 5 + (credibility / 20);
+    followers += gain;
+    credibility += 5;
+    money += 2;
+    updateUI("You posted valuable content.");
+  }
+
+  function hype() {
+    let gain = 15 + (Math.random() * 10);
+    followers += gain;
+    credibility -= 10;
+    updateUI("You posted hype content!");
+  }
+
+  function sell() {
+    let earn = 20 + (credibility / 5);
+    money += earn;
+    credibility -= 15;
+    updateUI("You sold a course.");
+  }
+
+  function flex() {
+    let boost = 30 + Math.random() * 20;
+    followers += boost;
+    credibility -= 25;
+    updateUI("You flexed a fake lifestyle.");
+  }
+
+  function checkGameOver() {
+    if (credibility <= 0) {
+      alert("💀 You got exposed!");
+      resetGame();
+    }
+    if (money <= 0) {
+      alert("💸 You went broke!");
+      resetGame();
+    }
+    if (followers <= 0) {
+      alert("😶 Nobody cares anymore!");
+      resetGame();
+    }
+  }
+
+  function resetGame() {
+    followers = 100;
+    money = 50;
+    credibility = 100;
+    updateUI("Game restarted.");
+  }
+
+  updateUI();
+</script>
+
+</body>
+</html>
